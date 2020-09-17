@@ -126,6 +126,7 @@ public class MongoDBReader extends Reader {
             while (dbCursor.hasNext()) {
                 Document item = dbCursor.next();
                 // format json
+                item.toJson(settings);
                 item = Document.parse(item.toJson(settings));
 
                 Record record = recordSender.createRecord();

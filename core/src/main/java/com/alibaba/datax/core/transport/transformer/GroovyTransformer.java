@@ -6,6 +6,8 @@ import com.alibaba.datax.transformer.Transformer;
 import groovy.lang.GroovyClassLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,9 @@ import java.util.List;
  * Created by liqiang on 16/3/4.
  */
 public class GroovyTransformer extends Transformer {
+    private static final Logger LOG = LoggerFactory
+            .getLogger(GroovyTransformer.class);
+
     public GroovyTransformer() {
         setTransformerName("dx_groovy");
     }
@@ -22,7 +27,7 @@ public class GroovyTransformer extends Transformer {
     private Transformer groovyTransformer;
 
     @Override
-    public Record evaluate(Record record, Object... paras) {
+    public Record evaluate(Record record, Object... paras)  {
 
         if (groovyTransformer == null) {
             //全局唯一
@@ -38,7 +43,6 @@ public class GroovyTransformer extends Transformer {
                 }
             }
         }
-
         return this.groovyTransformer.evaluate(record);
     }
 
@@ -83,6 +87,7 @@ public class GroovyTransformer extends Transformer {
         sb.append("public Record evaluate(Record record, Object... paras) {");
         sb.append(expression);
         sb.append("}}");
+        LOG.info(sb.toString());
 
         return sb.toString();
     }

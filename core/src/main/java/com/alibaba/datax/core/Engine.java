@@ -161,7 +161,6 @@ public class Engine {
         if (vmInfo != null) {
             LOG.info(vmInfo.toString());
         }
-
         LOG.info("\n" + Engine.filterJobConfiguration(configuration) + "\n");
 
         LOG.debug(configuration.toJSON());

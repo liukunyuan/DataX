@@ -2,6 +2,8 @@ package com.alibaba.datax.transformer;
 
 import com.alibaba.datax.common.element.Record;
 
+import java.security.NoSuchAlgorithmException;
+
 
 /**
  * no comments.
@@ -24,5 +26,5 @@ public abstract class Transformer {
      * @param record 行记录，UDF进行record的处理后，更新相应的record
      * @param paras  transformer函数参数
      */
-    abstract public Record evaluate(Record record, Object... paras);
+    abstract public Record evaluate(Record record, Object... paras) ;
 }
