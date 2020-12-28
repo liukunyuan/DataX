@@ -211,6 +211,14 @@ public class TxtFileWriter extends Writer {
         @Override
         public List<Configuration> split(int mandatoryNumber) {
             LOG.info("begin do split...");
+            String compress = this.writerSliceConfig.getString(Key.COMPRESS);
+            String extension = "";
+            if(StringUtils.isNotBlank(compress)){
+                if("gzip".equalsIgnoreCase(compress)){
+                    extension=".gz";
+                }
+            }
+
             List<Configuration> writerSplitConfigs = new ArrayList<Configuration>();
             String filePrefix = this.writerSliceConfig
                     .getString(com.alibaba.datax.plugin.unstructuredstorage.writer.Key.FILE_NAME);
@@ -236,11 +244,11 @@ public class TxtFileWriter extends Writer {
 
                 String fullFileName = null;
                 fileSuffix = UUID.randomUUID().toString().replace('-', '_');
-                fullFileName = String.format("%s__%s", filePrefix, fileSuffix);
+                fullFileName = String.format("%s__%s%s", filePrefix, fileSuffix,extension);
                 while (allFiles.contains(fullFileName)) {
                     fileSuffix = UUID.randomUUID().toString().replace('-', '_');
-                    fullFileName = String.format("%s__%s", filePrefix,
-                            fileSuffix);
+                    fullFileName = String.format("%s__%s%s", filePrefix,
+                            fileSuffix,extension);
                 }
                 allFiles.add(fullFileName);
 

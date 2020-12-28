@@ -41,6 +41,7 @@ public class MongodbCommonSplitter {
             filter = Document.parse(query);
         }
         long docCount = database.getCollection(collName).countDocuments(filter);
+
         if (docCount == 0L) {
             return CollectionSplitUtil.getOneSplit();
         }

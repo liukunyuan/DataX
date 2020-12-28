@@ -10,10 +10,14 @@ import com.alibaba.datax.common.util.RetryUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+
+import io.searchbox.action.Action;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Bulk;
 import io.searchbox.core.BulkResult;
 import io.searchbox.core.Index;
+import io.searchbox.indices.mapping.PutMapping;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -417,6 +421,10 @@ public class ESWriter extends Writer {
                                         throw DataXException.asDataXException(ESWriterErrorCode.ES_INDEX_INSERT, String.format("status:[%d], error: %s, config not ignoreParseError so throw this error", item.status, item.error));
                                     }
                                 }
+                                PutMapping.Builder builder = new PutMapping.Builder(index, type, item);
+                                JestResult execute = esClient.execute(builder.build());
+
+                                log.info("错误code:{},错误:{},",execute.getResponseCode(),execute.getErrorMessage());
                             }
 
                             List<BulkResult.BulkResultItem> items = brst.getItems();

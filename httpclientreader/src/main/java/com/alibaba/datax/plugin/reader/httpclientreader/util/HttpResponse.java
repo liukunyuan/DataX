@@ -1,14 +1,12 @@
-package com.alibaba.datax.plugin.reader.elasticsearchreader;
+package com.alibaba.datax.plugin.reader.httpclientreader.util;
 
 import java.io.Serializable;
 
 import org.apache.http.Header;
 
-import java.io.Serializable;
-
-public class EsHttpResponse implements Serializable {
+public class HttpResponse implements Serializable {
     private int statusCode;
-    private String body;
+    private byte[] body;
     private Header[] headers;
     private String reasonPhrase;
 
@@ -20,21 +18,21 @@ public class EsHttpResponse implements Serializable {
         this.statusCode = statusCode;
     }
 
-    public EsHttpResponse() {
+    public HttpResponse() {
     }
 
-    public EsHttpResponse(int statusCode, String body, Header[] headers, String reasonPhrase) {
+    public HttpResponse(int statusCode, byte[] body, Header[] headers, String reasonPhrase) {
         this.statusCode = statusCode;
         this.body = body;
         this.headers = headers;
         this.reasonPhrase = reasonPhrase;
     }
 
-    public String getBody() {
+    public byte[] getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(byte[] body) {
         this.body = body;
     }
 

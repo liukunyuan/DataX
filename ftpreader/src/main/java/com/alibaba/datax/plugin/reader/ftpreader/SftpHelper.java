@@ -37,16 +37,20 @@ public class SftpHelper extends FtpHelper {
 						"session is null,无法通过sftp与服务器建立链接，请检查主机名和用户名是否正确.");
 			}
 
+
 			session.setPassword(password); // 设置密码
 			Properties config = new Properties();
 			config.put("StrictHostKeyChecking", "no");
+			// 去掉Kerberos 身份验证
+			session.setConfig("PreferredAuthentications", "publickey,keyboard-interactive,password");
 			session.setConfig(config); // 为Session对象设置properties
 			session.setTimeout(timeout); // 设置timeout时间
 			session.connect(); // 通过Session建立链接
 
 			channelSftp = (ChannelSftp) session.openChannel("sftp"); // 打开SFTP通道
 			channelSftp.connect(); // 建立SFTP通道的连接
-			
+
+			LOG.debug("成功与sftp建立连接");
 			//设置命令传输编码
 			//String fileEncoding = System.getProperty("file.encoding");
 			//channelSftp.setFilenameEncoding(fileEncoding);		

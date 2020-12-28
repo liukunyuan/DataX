@@ -4,8 +4,7 @@ import com.alibaba.datax.common.exception.DataXException;
 import com.alibaba.datax.common.plugin.RecordSender;
 import com.alibaba.datax.common.spi.Reader;
 import com.alibaba.datax.common.util.Configuration;
-import com.alibaba.datax.plugin.unstructuredstorage.reader.UnstructuredStorageReaderErrorCode;
-import com.alibaba.datax.plugin.unstructuredstorage.reader.UnstructuredStorageReaderUtil;
+import com.alibaba.datax.plugin.reader.httpclientreader.util.UnstructuredStorageReaderUtil;
 import com.google.common.collect.Sets;
 
 import org.apache.commons.io.Charsets;
@@ -177,7 +176,7 @@ public class HttpClientReader extends Reader {
 			// warn: if have, length must be one
 			if (null != delimiterInStr && 1 != delimiterInStr.length()) {
 				throw DataXException.asDataXException(
-						UnstructuredStorageReaderErrorCode.ILLEGAL_VALUE,
+						HttpClientReaderErrorCode.ILLEGAL_VALUE,
 						String.format("仅仅支持单字符切分, 您配置的切分为 : [%s]",
 								delimiterInStr));
 			}
@@ -394,6 +393,8 @@ public class HttpClientReader extends Reader {
 
 		@Override
 		public void startRead(RecordSender recordSender) {
+			int index =0;
+			String url="";
 			LOG.debug("start read source files...");
 			for (String fileName : this.sourceFiles) {
 				LOG.info(String.format("reading file : [%s]", fileName));

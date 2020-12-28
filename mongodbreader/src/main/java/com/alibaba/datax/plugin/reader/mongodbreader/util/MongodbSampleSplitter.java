@@ -62,6 +62,7 @@ public class MongodbSampleSplitter extends MongodbCommonSplitter {
         AggregateIterable<Document> aggResult;
 
         try {
+
             aggResult = database.getCollection(collName).aggregate(list);
 
         } catch (MongoException e) {

@@ -47,19 +47,22 @@
 
         <!-- reader -->
         <module>mysqlreader</module>
+        <module>mysqlreader2</module>
         <module>drdsreader</module>
         <module>sqlserverreader</module>
         <module>postgresqlreader</module>
         <module>oraclereader</module>
         <module>odpsreader</module>
-        <module>otsreader</module>
+<!--        <module>otsreader</module>-->
         <module>otsstreamreader</module>
         <module>txtfilereader</module>
+        <module>txtfilereader2</module>
         <module>hdfsreader</module>
         <module>streamreader</module>
         <module>ossreader</module>
         <module>ftpreader</module>
         <module>mongodbreader</module>
+        <module>mongodbreader2</module>
         <module>rdbmsreader</module>
         <module>hbase11xreader</module>
         <module>hbase094xreader</module>
@@ -67,9 +70,10 @@
         <module>opentsdbreader</module>
         <module>cassandrareader</module>
         <module>gdbreader</module>
-        <module>elasticsearchreader</module>
+
         <module>httpclientreader</module>
-        <module>httpreader</module>
+        <module>elasticsearchreader</module>
+        <module>elasticsearchreader2</module>
         <!-- writer -->
         <module>mysqlwriter</module>
         <module>drdswriter</module>
@@ -78,7 +82,7 @@
         <module>ftpwriter</module>
         <module>hdfswriter</module>
         <module>streamwriter</module>
-        <module>otswriter</module>
+<!--        <module>otswriter</module>-->
         <module>oraclewriter</module>
         <module>sqlserverwriter</module>
         <module>postgresqlwriter</module>
@@ -96,7 +100,7 @@
         <module>adbpgwriter</module>
         <module>gdbwriter</module>
         <module>cassandrawriter</module>
-        <module>clickhousewriter</module>
+<!--        <module>clickhousewriter</module>-->
         <!-- common support module -->
         <module>plugin-rdbms-util</module>
         <module>plugin-unstructured-storage-util</module>

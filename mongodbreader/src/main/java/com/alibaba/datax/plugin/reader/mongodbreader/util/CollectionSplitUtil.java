@@ -10,6 +10,7 @@ import com.google.common.base.Strings;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 import org.apache.commons.lang3.StringUtils;
@@ -68,11 +69,16 @@ public class CollectionSplitUtil {
     private static boolean isPrimaryIdObjectId(MongoClient mongoClient, String dbName, String collName) {
         MongoDatabase database = mongoClient.getDatabase(dbName);
         MongoCollection<Document> col = database.getCollection(collName);
-        Document doc = col.find().limit(1).first();
-        Object id = doc.get(KeyConstant.MONGO_PRIMARY_ID);
-        if (id instanceof ObjectId) {
-            return true;
+        FindIterable<Document> iterable = col.find().limit(10);
+        MongoCursor<Document> iterator = iterable.iterator();
+        while(iterator.hasNext()){
+            Document doc = iterator.next();
+            Object id = doc.get(KeyConstant.MONGO_PRIMARY_ID);
+            if (id instanceof ObjectId) {
+                return true;
+            }
         }
+
         return false;
     }
 

@@ -126,7 +126,6 @@ public class MongoDBReader extends Reader {
             while (dbCursor.hasNext()) {
                 Document item = dbCursor.next();
                 // format json
-                item.toJson(settings);
                 item = Document.parse(item.toJson(settings));
 
                 Record record = recordSender.createRecord();
@@ -297,6 +296,16 @@ public class MongoDBReader extends Reader {
 
         @Override
         public void destroy() {
+            String collName = this.readerSliceConfig.getString("collectionName");
+            MongoCollection<Document> col = this.mongoClient.getDatabase(this.database).getCollection(collName);
+            Document filter = new Document();
+            if (!Strings.isNullOrEmpty(this.query)) {
+                Document queryFilter = Document.parse(this.query);
+                filter = new Document("$and", Arrays.asList(new Document[] { filter, queryFilter }));
+            }
+            long lineCount = col.countDocuments((Bson)filter);
+            LOG.info("过滤条件是:"+filter.toJson());
+            LOG.info("过滤条件结果:"+lineCount);
 
         }
 

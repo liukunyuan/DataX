@@ -463,8 +463,14 @@ public class JobContainer extends AbstractContainer {
         this.needChannelNumber = needChannelNumberByByte < needChannelNumberByRecord ?
                 needChannelNumberByByte : needChannelNumberByRecord;
 
+        LOG.info("needChannelNumberByByte,{} ",needChannelNumberByByte);
+        LOG.info("needChannelNumberByRecord,{} ",needChannelNumberByRecord);
+        LOG.info("Job set Channel-Number to " + this.needChannelNumber
+                + " channels.");
+
         // 如果从byte或record上设置了needChannelNumber则退出
         if (this.needChannelNumber < Integer.MAX_VALUE) {
+            LOG.info("如果从byte或record上设置了needChannelNumber则退出");
             return;
         }
 

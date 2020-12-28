@@ -61,6 +61,10 @@ public class KeyConstant {
      * 指定用来判断是否覆盖的 业务主键
      */
     public static final String UNIQUE_KEY = "replaceKey";
+
+
+    public static final String MONGO_AUTHDB = "authDb";
+
     /**
      * 判断是否为数组类型
      * @param type 数据类型

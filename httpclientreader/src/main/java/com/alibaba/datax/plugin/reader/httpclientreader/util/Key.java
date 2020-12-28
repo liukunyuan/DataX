@@ -1,4 +1,4 @@
-package com.alibaba.datax.plugin.unstructuredstorage.reader;
+package com.alibaba.datax.plugin.reader.httpclientreader.util;
 
 /**
  * Created by haiwei.luo on 14-12-5.
@@ -9,8 +9,8 @@ public class Key {
 	public static final String ENCODING = "encoding";
 
 	public static final String FIELD_DELIMITER = "fieldDelimiter";
-	public static final String url = "url";
-//	public static final int httpindex = "httpindex";
+	public static final String HTTP_URL = "url";
+	public static final String HTTP_INDEX = "httpindex";
 
 	public static final String SKIP_HEADER = "skipHeader";
 

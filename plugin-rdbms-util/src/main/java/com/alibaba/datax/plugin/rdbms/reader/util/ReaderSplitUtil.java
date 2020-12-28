@@ -26,6 +26,7 @@ public final class ReaderSplitUtil {
             // eachTableShouldSplittedNumber是单表应该切分的份数, 向上取整可能和adviceNumber没有比例关系了已经
             eachTableShouldSplittedNumber = calculateEachTableShouldSplittedNumber(
                     adviceNumber, originalSliceConfig.getInt(Constant.TABLE_NUMBER_MARK));
+            LOG.info("切片个数为29:{}",eachTableShouldSplittedNumber);
         }
 
         String column = originalSliceConfig.getString(Key.COLUMN);
@@ -61,6 +62,7 @@ public final class ReaderSplitUtil {
                 //最终切分份数不一定等于 eachTableShouldSplittedNumber
                 boolean needSplitTable = eachTableShouldSplittedNumber > 1
                         && StringUtils.isNotBlank(splitPk);
+
                 if (needSplitTable) {
                     if (tables.size() == 1) {
                         //原来:如果是单表的，主键切分num=num*2+1
@@ -69,6 +71,7 @@ public final class ReaderSplitUtil {
                         
                         //考虑其他比率数字?(splitPk is null, 忽略此长尾)
                         eachTableShouldSplittedNumber = eachTableShouldSplittedNumber * 5;
+                        LOG.info("切片个数为74:{}",eachTableShouldSplittedNumber);
                     }
                     // 尝试对每个表，切分为eachTableShouldSplittedNumber 份
                     for (String table : tables) {
@@ -102,7 +105,7 @@ public final class ReaderSplitUtil {
             }
 
         }
-
+        LOG.info("切片个数为108:{}",splittedConfigs.size());
         return splittedConfigs;
     }
 

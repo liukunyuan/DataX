@@ -46,6 +46,7 @@ public class MysqlReader extends Reader {
 
         @Override
         public List<Configuration> split(int adviceNumber) {
+            LOG.info("切片个数为49:{}",adviceNumber);
             return this.commonRdbmsReaderJob.split(this.originalConfig, adviceNumber);
         }
 
