@@ -24,6 +24,8 @@ public abstract class HbaseAbstractTask {
     protected String encoding;
     protected int scanCacheSize;
     protected int  scanBatchSize;
+    protected long  startTimestamp;
+    protected long  endTimestamp;
 
     protected Result lastResult = null;
     protected Scan scan;
@@ -38,6 +40,8 @@ public abstract class HbaseAbstractTask {
         this.startKey = Hbase11xHelper.convertInnerStartRowkey(configuration);
         this.endKey =  Hbase11xHelper.convertInnerEndRowkey(configuration);
         this.scanCacheSize = configuration.getInt(Key.SCAN_CACHE_SIZE,Constant.DEFAULT_SCAN_CACHE_SIZE);
+        this.startTimestamp = configuration.getLong(Key.START_TIMESTAMP,0L);
+        this.endTimestamp = configuration.getLong(Key.END_TIMESTAMP,Long.MAX_VALUE);
         this.scanBatchSize = configuration.getInt(Key.SCAN_BATCH_SIZE,Constant.DEFAULT_SCAN_BATCH_SIZE);
     }
 
@@ -50,8 +54,8 @@ public abstract class HbaseAbstractTask {
     public void prepare() throws Exception {
         this.scan = new Scan();
         this.scan.setSmall(false);
-        this.scan.setStartRow(startKey);
-        this.scan.setStopRow(endKey);
+//        this.scan.setStartRow(startKey);
+//        this.scan.setStopRow(endKey);
         LOG.info("The task set startRowkey=[{}], endRowkey=[{}].", Bytes.toStringBinary(this.startKey), Bytes.toStringBinary(this.endKey));
         //scan的Caching Batch全部留在hconfig中每次从服务器端读取的行数，设置默认值未256
         this.scan.setCaching(this.scanCacheSize);
@@ -59,6 +63,8 @@ public abstract class HbaseAbstractTask {
         this.scan.setBatch(this.scanBatchSize);
         //为是否缓存块，hbase默认缓存,同步全部数据时非热点数据，因此不需要缓存
         this.scan.setCacheBlocks(false);
+        LOG.info("startTimestamp is {},endTimestamp is {}",this.startTimestamp,this.endTimestamp);
+        this.scan.setTimeRange(this.startTimestamp,this.endTimestamp);
         initScan(this.scan);
 
         this.resultScanner = this.htable.getScanner(this.scan);

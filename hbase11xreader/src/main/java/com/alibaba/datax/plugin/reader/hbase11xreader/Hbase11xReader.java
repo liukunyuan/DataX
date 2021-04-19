@@ -54,6 +54,9 @@ public class Hbase11xReader extends Reader {
                 case MultiVersionFixedColumn:
                     this.hbaseTaskProxy = new MultiVersionFixedColumnTask(this.taskConfig);
                     break;
+                case MultiLineTask:
+                    this.hbaseTaskProxy = new MultiLineTask(this.taskConfig);
+                    break;
                 default:
                     throw DataXException.asDataXException(Hbase11xReaderErrorCode.ILLEGAL_VALUE, "Hbasereader 不支持此类模式:" + modeType);
             }
@@ -77,6 +80,7 @@ public class Hbase11xReader extends Reader {
                     fetchOK = this.hbaseTaskProxy.fetchLine(record);
                 } catch (Exception e) {
                     LOG.info("Exception", e);
+
                     super.getTaskPluginCollector().collectDirtyRecord(record, e);
                     record = recordSender.createRecord();
                     continue;

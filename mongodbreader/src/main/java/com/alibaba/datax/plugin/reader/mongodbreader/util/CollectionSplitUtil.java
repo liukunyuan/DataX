@@ -73,6 +73,7 @@ public class CollectionSplitUtil {
         MongoCursor<Document> iterator = iterable.iterator();
         while(iterator.hasNext()){
             Document doc = iterator.next();
+            LOG.info("Document is :"+doc.toJson());
             Object id = doc.get(KeyConstant.MONGO_PRIMARY_ID);
             if (id instanceof ObjectId) {
                 return true;

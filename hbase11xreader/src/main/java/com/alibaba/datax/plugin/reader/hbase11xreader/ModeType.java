@@ -7,7 +7,13 @@ import java.util.Arrays;
 public enum ModeType {
     Normal("normal"),
     MultiVersionFixedColumn("multiVersionFixedColumn")
-    ;
+    ,
+
+    MultiLineTask("MultiLineColumn")
+            ;
+
+
+
 
     private String mode;
 

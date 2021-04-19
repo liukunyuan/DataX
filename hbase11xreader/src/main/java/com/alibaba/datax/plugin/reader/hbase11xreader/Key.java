@@ -42,6 +42,11 @@ public final class Key {
 
     public final static String END_ROWKEY = "endRowkey";
 
+
+    public final static String START_TIMESTAMP = "startTimestamp";
+
+    public final static String END_TIMESTAMP = "endTimestamp";
+
     public final static String IS_BINARY_ROWKEY = "isBinaryRowkey";
 
     public final static String SCAN_CACHE_SIZE = "scanCacheSize";

@@ -465,6 +465,8 @@ public class Hbase11xHelper {
                 Hbase11xHelper.parseColumnOfMultiversionMode(column);
                 break;
             }
+            case MultiLineTask:
+                break;
             default:
                 throw DataXException.asDataXException(Hbase11xReaderErrorCode.ILLEGAL_VALUE,
                         String.format("HbaseReader不支持该 mode 类型:%s", mode));
